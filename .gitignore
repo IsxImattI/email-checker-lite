@@ -1,0 +1,14 @@
+﻿bin/
+obj/
+.vscode/
+*.user
+*.suo
+*.exe
+*.dll
+*.pdb
+*.log
+*.tmp
+.vs/
+*.user
+*.suo
+*.vsidx
