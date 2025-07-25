@@ -18,5 +18,21 @@ namespace EmailChecker.Tests
             var result = EmailValidator.IsValidSyntax("not-an-email");
             Assert.False(result);
         }
+
+        [Fact]
+        public void IsDisposable_Should_ReturnTrue_For_DisposableEmail()
+        {
+            var disposableDomains = new HashSet<string> { "mailinator.com", "yopmail.com" };
+            var result = EmailValidator.IsDisposable("user@mailinator.com", disposableDomains);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsDisposable_Should_ReturnFalse_For_NormalEmail()
+        {
+            var disposableDomains = new HashSet<string> { "mailinator.com", "yopmail.com" };
+            var result = EmailValidator.IsDisposable("john@gmail.com", disposableDomains);
+            Assert.False(result);
+        }
     }
 }

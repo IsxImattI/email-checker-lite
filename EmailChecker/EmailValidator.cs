@@ -54,5 +54,18 @@ namespace EmailChecker
                 return false;
             }
         }
+
+        public static bool IsDisposable(string email, HashSet<string> disposableDomains)
+        {
+            try
+            {
+                var domain = email.Split('@')[1].ToLower();
+                return disposableDomains.Contains(domain);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

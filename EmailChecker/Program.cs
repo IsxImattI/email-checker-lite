@@ -4,6 +4,11 @@ using System.IO;
 using System.Linq;
 using EmailChecker;
 
+var disposableDomains = new HashSet<string>(
+    File.ReadAllLines("disposable_domains.txt")
+        .Select(d => d.Trim().ToLower())
+        .Where(d => !string.IsNullOrEmpty(d))
+);
 
 Console.WriteLine("Email Checker");
 Console.Write("Enter path to CSV file with emails: ");
@@ -21,16 +26,17 @@ var emails = File.ReadAllLines(path)
 
 Console.WriteLine($"\n Checking {emails.Count} emails...\n");
 
-var results = new List<string> { "Email,ValidSyntax,DomainExists,HasMX" };
+var results = new List<string> { "Email,ValidSyntax,DomainExists,HasMX,IsDisposable" };
 
 foreach (var email in emails)
 {
     bool valid = EmailValidator.IsValidSyntax(email);
     bool domain = valid && EmailValidator.DomainExists(email);
     bool mx = domain && EmailValidator.HasMXRecord(email);
+    bool isDisposable = valid && EmailValidator.IsDisposable(email, disposableDomains);
 
-    Console.WriteLine($" {email} => Syntax: {valid}, Domain: {domain}, MX: {mx}");
-    results.Add($"{email},{valid},{domain},{mx}");
+    Console.WriteLine($" {email} => Syntax: {valid}, Domain: {domain}, MX: {mx}, Disposable: {isDisposable}");
+    results.Add($"{email},{valid},{domain},{mx},{isDisposable}");
 }
 
 string outputPath = Path.Combine(Path.GetDirectoryName(path)!, "results.csv");
