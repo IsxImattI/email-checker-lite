@@ -1,10 +1,15 @@
-﻿# Email Checker Lite ✉️
+# Email Checker Lite ✉️
 
-Open-source .NET tool to validate email addresses by checking:
+![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet)
+![Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+
+Open-source .NET CLI tool to validate email addresses by checking:
 
 ✅ Syntax  
 ✅ Domain existence  
 ✅ MX records  
+✅ Disposable domain detection
 
 ---
 
@@ -20,32 +25,39 @@ Open-source .NET tool to validate email addresses by checking:
 
 ## 🧪 Example
 
-Input file (`emails.csv`):
+**Input file (`emails.csv`):**
+```
 john@example.com
 not-an-email
 info@mailinator.com
+```
 
-
-Output (`results.csv`):
-Email,ValidSyntax,DomainExists,HasMX
-john@example.com,true,true,true
-not-an-email,false,false,false
-info@mailinator.com,true,true,true
-
+**Output (`results.csv`):**
+```
+Email,ValidSyntax,DomainExists,HasMX,IsDisposable
+john@example.com,true,true,true,false
+not-an-email,false,false,false,false
+info@mailinator.com,true,true,true,true
+```
 
 ---
 
-## 📦 Features in progress
+## 📦 Features
 
+- [x] Disposable email detection  
 - [ ] Support for `.xlsx` input  
-- [ ] Disposable email detection  
-- [ ] CLI arguments (`--input --output`)  
+- [ ] CLI arguments (`--input`, `--output`)  
 - [ ] Web UI frontend  
 - [ ] Docker support  
 
 ---
 
+## 👥 Contributors
+
+- [@IsxImattI](https://github.com/IsxImattI) – author
+
+---
+
 ## 📝 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for full details.
