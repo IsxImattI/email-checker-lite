@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EmailChecker": {
+      "commandName": "Project",
+      "commandLineArgs": "--input=\"C:\\Users\\matej\\Desktop\\testniemaili\\emails.csv\"\r\n"
+    }
+  }
+}

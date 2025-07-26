@@ -4,6 +4,18 @@ using System.IO;
 using System.Linq;
 using EmailChecker;
 
+string? inputPath = null;
+string? outputPath = null;
+
+var argsDict = args
+    .Where(a => a.StartsWith("--"))
+    .Select(a => a.Split('='))
+    .ToDictionary(a => a[0], a => a.Length > 1 ? a[1] : null);
+
+argsDict.TryGetValue("--input", out inputPath);
+argsDict.TryGetValue("--output", out outputPath);
+
+
 var disposableDomains = new HashSet<string>(
     File.ReadAllLines("disposable_domains.txt")
         .Select(d => d.Trim().ToLower())
@@ -11,8 +23,13 @@ var disposableDomains = new HashSet<string>(
 );
 
 Console.WriteLine("Email Checker");
-Console.Write("Enter path to CSV file with emails: ");
-string? path = Console.ReadLine();
+string? path = inputPath;
+if (string.IsNullOrWhiteSpace(path))
+{
+    Console.Write("Enter path to CSV file with emails: ");
+    path = Console.ReadLine();
+}
+
 
 if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
 {
@@ -39,7 +56,7 @@ foreach (var email in emails)
     results.Add($"{email},{valid},{domain},{mx},{isDisposable}");
 }
 
-string outputPath = Path.Combine(Path.GetDirectoryName(path)!, "results.csv");
+outputPath ??= Path.Combine(Path.GetDirectoryName(path)!, "results.csv");
 File.WriteAllLines(outputPath, results);
 
 Console.WriteLine($"\n Results saved to: {outputPath}");
