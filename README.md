@@ -18,8 +18,8 @@ Open-source .NET CLI tool to validate email addresses by checking:
 1. Clone the repo  
 2. Open in Visual Studio  
 3. Build & run the console app  
-4. Enter path to a `.csv` or `.txt` file containing emails (one per line)  
-5. The result will be saved to `results.csv` in the same directory
+4. Provide the path to a `.csv`, `.txt`, or `.xlsx` file containing emails (one per line in the first column)  
+5. The result will be saved to `results.csv` (or your custom output path)
 
 ---
 
@@ -45,7 +45,7 @@ info@mailinator.com,true,true,true,true
 ## 📦 Features
 
 - [x] Disposable email detection  
-- [ ] Support for `.xlsx` input  
+- [x] Support for `.xlsx` input  
 - [ ] CLI arguments (`--input`, `--output`)  
 - [ ] Web UI frontend  
 - [ ] Docker support  
