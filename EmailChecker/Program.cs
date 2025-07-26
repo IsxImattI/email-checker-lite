@@ -37,9 +37,13 @@ if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
     return;
 }
 
-var emails = File.ReadAllLines(path)
-    .Where(e => !string.IsNullOrWhiteSpace(e))
-    .ToList();
+List<string> emails;
+if (Path.GetExtension(path).ToLower() == ".xlsx")
+    emails = EmailInput.ReadFromXlsx(path);
+else
+    emails = File.ReadAllLines(path)
+                 .Where(e => !string.IsNullOrWhiteSpace(e))
+                 .ToList();
 
 Console.WriteLine($"\n Checking {emails.Count} emails...\n");
 
